@@ -63,22 +63,22 @@ func (mc *Context) RequestEnd() {
 	mc.Ctx.RequestEnd() // MUST be called!
 }
 
-func newContext(l *lars.LARS) lars.Context {
-	return &Context{
-		Ctx:        lars.NewContext(l),
-		AppContext: newGlobals(),
-	}
-}
-
 func New() *Potion {
 	l := lars.New()
-	l.RegisterContext(newContext) // all gets cached in pools for you
+
+	l.RegisterContext(func(l *lars.LARS) lars.Context {
+		return &Context{
+			Ctx:        lars.NewContext(l),
+			AppContext: newGlobals(),
+		}
+	})
+
 	l.RegisterCustomHandler(func(*Context) {}, func(c lars.Context, handler lars.Handler) {
-		// could do it in all one statement, but in long form for readability
 		h := handler.(func(*Context))
 		ctx := c.(*Context)
 		h(ctx)
 	})
+
 	//MiddleWare is LI-FO
 	l.Use(Logger)
 	return &Potion{*l}

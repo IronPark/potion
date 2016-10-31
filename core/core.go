@@ -32,7 +32,9 @@ func (g *ApplicationGlobals) Done() {
 func newGlobals() *ApplicationGlobals {
 
 	logger := log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	templates := template.Must(template.ParseGlob("templates/**"))
+
+	templates := template.New("").Delims("{%", "%}")
+	templates = template.Must(templates.ParseGlob("templates/**"))
 
 	return &ApplicationGlobals{
 		Log:       logger,

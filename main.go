@@ -9,10 +9,10 @@ import (
 func main() {
 	p := core.New()
 	p.Get("/", Home)
-	p.Get("/pub/*", http.FileServer(http.Dir("public/")))
+	p.Pubilc("public/")
 	http.ListenAndServe(":3007", p.Serve())
 }
 
-func Home(c *core.Potion) {
+func Home(c *core.Context) {
 	c.HTML(200, "front.tmpl", nil)
 }

@@ -2,6 +2,7 @@ package core
 
 import (
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -39,46 +40,66 @@ func newGlobals() *ApplicationGlobals {
 	}
 }
 
-// Potion is a custom context
-type Potion struct {
+// Context is a custom context
+type Context struct {
 	*lars.Ctx  // a little dash of Duck Typing....
 	AppContext *ApplicationGlobals
 }
 
+type Potion struct {
+	lars.LARS
+}
+
 // RequestStart overriding
-func (mc *Potion) RequestStart(w http.ResponseWriter, r *http.Request) {
+func (mc *Context) RequestStart(w http.ResponseWriter, r *http.Request) {
 	// call lars context reset, must be done
 	mc.Ctx.RequestStart(w, r) // MUST be called!
 	mc.AppContext.Reset()
 }
 
 // RequestEnd overriding
-func (mc *Potion) RequestEnd() {
+func (mc *Context) RequestEnd() {
 	mc.AppContext.Done()
 	mc.Ctx.RequestEnd() // MUST be called!
 }
 
 func newContext(l *lars.LARS) lars.Context {
-	return &Potion{
+	return &Context{
 		Ctx:        lars.NewContext(l),
 		AppContext: newGlobals(),
 	}
 }
 
-func castCustomContext(c lars.Context, handler lars.Handler) {
-	// could do it in all one statement, but in long form for readability
-	h := handler.(func(*Potion))
-	ctx := c.(*Potion)
-	h(ctx)
-}
-
-func New() *lars.LARS {
+func New() *Potion {
 	l := lars.New()
 	l.RegisterContext(newContext) // all gets cached in pools for you
-	l.RegisterCustomHandler(func(*Potion) {}, castCustomContext)
+	l.RegisterCustomHandler(func(*Context) {}, func(c lars.Context, handler lars.Handler) {
+		// could do it in all one statement, but in long form for readability
+		h := handler.(func(*Context))
+		ctx := c.(*Context)
+		h(ctx)
+	})
 	//MiddleWare is LI-FO
 	l.Use(Logger)
-	return l
+	return &Potion{*l}
+}
+
+func (p *Potion) Pubilc(path string) {
+	if path[len(path)-1] != []byte("/")[0] {
+		path = path + "/"
+	}
+
+	files, _ := ioutil.ReadDir("./" + path)
+	for _, f := range files {
+		if f.IsDir() {
+			fs := http.FileServer(http.Dir(path + f.Name()))
+			p.Get("/"+f.Name()+"/*", http.StripPrefix("/"+f.Name(), fs))
+		} else {
+			p.Handle("GET", "/"+f.Name(), func(w http.ResponseWriter, r *http.Request) {
+				http.ServeFile(w, r, path+f.Name())
+			})
+		}
+	}
 }
 
 // Logger

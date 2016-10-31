@@ -1,6 +1,7 @@
 package core
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -9,15 +10,9 @@ import (
 	"github.com/go-playground/lars"
 )
 
-// This is a contrived example of how I would use in production
-// I would break things into separate files but all here for simplicity
-// ApplicationGlobals houses all the application info for use.
 type ApplicationGlobals struct {
-	// DB - some database connection
-	Log *log.Logger
-	// Translator - some i18n translator
-	// JSON - encoder/decoder
-	// Schema - gorilla schema
+	Log       *log.Logger
+	Templates *template.Template
 }
 
 // Reset gets called just before a new HTTP request starts calling
@@ -36,17 +31,11 @@ func (g *ApplicationGlobals) Done() {
 func newGlobals() *ApplicationGlobals {
 
 	logger := log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	// translator := ...
-	// db := ... base db connection or info
-	// json := ...
-	// schema := ...
+	templates := template.Must(template.ParseGlob("templates/**"))
 
 	return &ApplicationGlobals{
-		Log: logger,
-		// Translator: translator,
-		// DB: db,
-		// JSON: json,
-		// schema:schema,
+		Log:       logger,
+		Templates: templates,
 	}
 }
 
@@ -87,8 +76,8 @@ func New() *lars.LARS {
 	l := lars.New()
 	l.RegisterContext(newContext) // all gets cached in pools for you
 	l.RegisterCustomHandler(func(*Potion) {}, castCustomContext)
+	//MiddleWare is LI-FO
 	l.Use(Logger)
-
 	return l
 }
 

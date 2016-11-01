@@ -1,0 +1,7 @@
+language: go
+go:
+  - 1.7
+  - master
+install:
+  - go get github.com/go-playground/lars
+  - go get github.com/russross/blackfriday

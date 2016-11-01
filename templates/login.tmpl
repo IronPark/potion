@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hero - Free Bulma template</title>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<link rel="stylesheet" href="/css/bulma.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="app">
+	<section class="hero is-fullheight is-dark is-bold">
+		<div class="hero-body">
+			<div class="container">
+				<div class="columns is-vcentered">
+					<div class="column is-4 is-offset-4">
+						<h1 class="title">
+                            {{ message }}
+						</h1>
+						<div class="box">
+							<label class="label">Email</label>
+							<p class="control">
+								<input class="input" type="text" placeholder="jsmith@example.org">
+							</p>
+							<label class="label">Password</label>
+							<p class="control">
+								<input class="input" type="password" placeholder="●●●●●●●">
+							</p>
+							<hr>
+							<p class="control">
+								<button class="button is-primary">Login</button>
+								<button class="button is-default">Cancel</button>
+							</p>
+						</div>
+						<p class="has-text-centered">
+							<a href="register.html">Register an Account</a> |
+							<a href="#">Forgot password</a> |
+							<a href="#">Need help?</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    </div>
+	<script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Login'
+            }
+        })
+    </script>
+</body>
+
+</html>

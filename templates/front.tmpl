@@ -2,60 +2,106 @@
 <html>
 
 <head>
-	<title>Login</title>
+    <title>The Potion</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Hero - Free Bulma template</title>
 	<script type="text/javascript" src="/js/vue.min.js"></script>
 	<link rel="stylesheet" href="/css/bulma.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 
 <body>
-    <div id="app">
-	<section class="hero is-fullheight is-dark is-bold">
-		<div class="hero-body">
-			<div class="container">
-				<div class="columns is-vcentered">
-					<div class="column is-4 is-offset-4">
-						<h1 class="title">
-                            {{ message }}
-						</h1>
-						<div class="box">
-							<label class="label">Email</label>
-							<p class="control">
-								<input class="input" type="text" placeholder="jsmith@example.org">
-							</p>
-							<label class="label">Password</label>
-							<p class="control">
-								<input class="input" type="password" placeholder="●●●●●●●">
-							</p>
-							<hr>
-							<p class="control">
-								<button class="button is-primary">Login</button>
-								<button class="button is-default">Cancel</button>
-							</p>
-						</div>
-						<p class="has-text-centered">
-							<a href="register.html">Register an Account</a> |
-							<a href="#">Forgot password</a> |
-							<a href="#">Need help?</a>
-						</p>
-					</div>
-				</div>
+    <section style="position:fixed;right:0;left:0;z-index: 999;" class="hero">
+	<nav class="nav has-shadow" id="top">
+		<div class="container">
+			<div class="nav-left">
+				<a class="nav-item" href="/" style="font-size: 15pt;">
+					POTION
+				</a>
 			</div>
+			<span class="nav-toggle">
+            <span></span>
+			<span></span>
+			<span></span>
+			</span>
+			<div class="nav-center nav-menu">
+				<a class="nav-item is-tab is-active">HOME</a>
+				<a class="nav-item is-tab">MAIL</a>
+				<a class="nav-item is-tab">CONTACT</a>
+				<a class="nav-item is-tab">BOARD</a>
+				<a class="nav-item is-tab">E-WORK</a>
+			</div>
+			<div class="nav-right nav-menu"></div>
+		</div>
+	</nav>
+    </section>
+	<aside class="menu" style="position: fixed;top: 50px;left: 0;bottom: 0;background:#fff;padding: 15px;box-shadow: 4px 0px 5px #b7b7b7;width: 300px;">
+		<div class="panel-block">
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-48x48">
+                        <img src="https://avatars1.githubusercontent.com/u/4973597?v=3&s=466" class="is-rounded">
+                    </p>
+                </figure>
+                <div class="media-content" style="font-size: 12px;">
+                    <div class="content">
+                        <p>
+                        <strong>Cheol-Wan Park</strong>
+                        </p>
+                        <small>IT / Software Engineer</small>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <p class="menu-label">
+			General
+		</p>
+		<ul class="menu-list">
+			<li><a href="#">Dashboard</a></li>
+			<li><a href="#">Customers</a></li>
+		</ul>
+		<p class="menu-label">
+			Administration
+		</p>
+		<ul class="menu-list">
+			<li><a href="#">Team Settings</a></li>
+			<li>
+				<a class="is-active" href="#">Manage Your Team</a>
+				<ul>
+					<li><a href="#">Members</a></li>
+					<li><a href="#">Plugins</a></li>
+					<li><a href="#">Add a member</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Invitations</a></li>
+			<li><a href="#">Authentication</a></li>
+		</ul>
+		<p class="menu-label">
+			Transactions
+		</p>
+		<ul class="menu-list">
+			<li><a href="#">Payments</a></li>
+			<li><a href="#">Transfers</a></li>
+			<li><a href="#">Balance</a></li>
+		</ul>
+	</aside>
+	<section class="section">
+		<div class="container content" style="margin-top: 50px;">
+			<p class="has-text-centered">Skeleton template for a basic layout.</p>
 		</div>
 	</section>
-    </div>
-	<script type="text/javascript">
-        var app = new Vue({
-            el: '#app',
-            data: {
-                message: 'Login'
-            }
-        })
-    </script>
+
+	<footer class="footer">
+		<div class="container">
+			<div class="content has-text-centered">
+				<p>
+					<strong>Bulma</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+					<a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>					<i class="icon fa fa-github"></i>
+				</p>
+			</div>
+		</div>
+	</footer>
 </body>
 
 </html>

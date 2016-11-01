@@ -1,5 +1,6 @@
 POTION
 --------
+[![Build Status](https://travis-ci.org/IronPark/potion.svg?branch=master)](https://travis-ci.org/IronPark/potion)
 POTION is opensource web based Collaborative software.
 
 STATUS

@@ -11,5 +11,4 @@ install:
   - go get github.com/russross/blackfriday
 
 script: 
-  - go install .
-  - go build
+  - go install github.com/ironpark/potion

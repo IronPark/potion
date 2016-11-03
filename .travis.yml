@@ -9,6 +9,7 @@ go:
 install:
   - go get github.com/go-playground/lars
   - go get github.com/russross/blackfriday
+  - go get github.com/ironpark/potion/*
 
 script: 
-  - go install github.com/ironpark/potion
+  - go build
